@@ -1,0 +1,30 @@
+<template>
+  <div id="app">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Liftler</a>
+          </li>
+        </ul>
+      </div>
+      <div class="mx-auto order-0">
+        <router-link to="/" class="navbar-brand mx-auto">Anasayfa</router-link>
+      </div>
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Giriş Yap</a>
+          </li>
+          <li class="nav-item">
+            <router-link to="/signup" class="nav-link">Kayıt Ol</router-link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <router-view></router-view>
+  </div>
+</template>
+
+<style>
+</style>
