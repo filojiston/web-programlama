@@ -21,7 +21,8 @@ async function login(user) {
   }
 
   return Promise.resolve({
-    message: 'you successfully logged in!'
+    message: 'you successfully logged in!',
+    statusCode: 200
   });
 }
 

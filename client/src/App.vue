@@ -11,13 +11,25 @@
       <div class="mx-auto order-0">
         <router-link to="/" class="navbar-brand mx-auto">Anasayfa</router-link>
       </div>
-      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <div v-if="!this.$root.$data.isLoggedIn"
+      class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Giriş Yap</a>
+            <router-link to="/login" class="nav-link">Giriş Yap</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/signup" class="nav-link">Kayıt Ol</router-link>
+          </li>
+        </ul>
+      </div>
+      <div v-if="this.$root.$data.isLoggedIn"
+      class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link"
+            v-on:click.prevent="logout">
+              {{this.$root.$data.loggedUser}}
+            </a>
           </li>
         </ul>
       </div>
@@ -26,5 +38,16 @@
   </div>
 </template>
 
-<style>
-</style>
+<script>
+export default {
+  name: 'App',
+  data: () => ({
+
+  }),
+  methods: {
+    logout() {
+      this.$root.$data.isLoggedIn = false;
+    },
+  },
+};
+</script>

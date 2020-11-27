@@ -11,7 +11,13 @@ Vue.component('ValidationObserver', ValidationObserver);
 
 Vue.config.productionTip = false;
 
+const state = {
+  isLoggedIn: false,
+  loggedUser: '',
+};
+
 new Vue({
   router,
+  data: state,
   render(h) { return h(App); },
 }).$mount('#app');
