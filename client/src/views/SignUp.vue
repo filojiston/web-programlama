@@ -5,7 +5,7 @@
         <div class="m-5">
           <div class="form-group">
             <label for="username">Kullanıcı Adı</label>
-              <ValidationProvider name="user name" rules="required|alpha|min:3|max:40"
+              <ValidationProvider name="user name" rules="required|alpha_num|min:3|max:40"
               v-slot="{ errors }">
                 <input v-model="formData.username" type="text" class="form-control" id="username">
                 <small>{{ errors[0] }}</small>
@@ -63,6 +63,10 @@ export default {
           'content-type': 'application/json',
         },
       });
+
+      if (this.response.ok) {
+        this.$router.push('/');
+      }
     },
   },
 };

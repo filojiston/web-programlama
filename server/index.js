@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
@@ -14,9 +14,13 @@ app.use(bodyParser.json());
 
 const login = require('./routes/login');
 const signUp = require('./routes/signUp');
+const lifts = require('./routes/lifts');
+const recipes = require('./routes/recipes');
 
 app.use('/login', login);
 app.use('/signup', signUp);
+app.use('/lifts', lifts);
+app.use('/recipes', recipes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

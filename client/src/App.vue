@@ -4,7 +4,10 @@
       <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Liftler</a>
+             <router-link to="/lifts" class="nav-link">Liftler</router-link>
+          </li>
+          <li v-if="authUser()" class="nav-item">
+             <router-link to="/recipes" class="nav-link">Lift Reçetesi</router-link>
           </li>
         </ul>
       </div>
@@ -25,6 +28,9 @@
       <div v-if="this.$root.$data.isLoggedIn"
       class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sepetim</a>
+          </li>
           <li class="nav-item">
             <a href="#" class="nav-link"
             v-on:click.prevent="logout">
@@ -47,6 +53,10 @@ export default {
   methods: {
     logout() {
       this.$root.$data.isLoggedIn = false;
+      this.$root.$data.loggedUser = '';
+    },
+    authUser() {
+      return this.$root.$data.loggedUser.startsWith('admin');
     },
   },
 };
