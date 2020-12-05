@@ -54,6 +54,7 @@ export default {
     logout() {
       this.$root.$data.isLoggedIn = false;
       this.$root.$data.loggedUser = '';
+      this.$router.push('/');
     },
     authUser() {
       return this.$root.$data.loggedUser.startsWith('admin');
