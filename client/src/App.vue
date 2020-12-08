@@ -29,7 +29,7 @@
       class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Sepetim</a>
+            <router-link to="/cart" class="nav-link">Sepetim</router-link>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link"
@@ -54,6 +54,7 @@ export default {
     logout() {
       this.$root.$data.isLoggedIn = false;
       this.$root.$data.loggedUser = '';
+      this.$root.$data.userCart = [];
       this.$router.push('/');
     },
     authUser() {

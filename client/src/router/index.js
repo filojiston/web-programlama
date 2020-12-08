@@ -5,6 +5,7 @@ import SignUp from '../views/SignUp.vue';
 import Login from '../views/Login.vue';
 import Lifts from '../views/Lifts.vue';
 import Recipes from '../views/Recipes.vue';
+import Cart from '../views/Cart.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/recipes',
     name: 'Recipes',
     component: Recipes,
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart,
   },
 ];
 

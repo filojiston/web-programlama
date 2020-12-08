@@ -1,3 +1,2 @@
-1- kullanıcılar için daha iyi bir sistem düşün
-2- login kısmını iyileştirmeye çalış, sadece logged in mesajı döndürüyo
-3- frontend kısmında login ve signupda inputu kontrol et, yanlış input olduğu sürece butonları aktif etme.
+[] route guard olayına bak.
+[] sepet sistemi eklenecek

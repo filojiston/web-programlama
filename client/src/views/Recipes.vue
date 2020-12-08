@@ -32,7 +32,7 @@
                 <label for="rawMaterials">Kullanılan Hammaddeler</label>
                 <input v-model="liftForm.rawMaterials" type="text"
                 class="form-control" id="rawMaterials"
-                placeholder="Aralarında birer boşluk olacak şekilde yazınız">
+                placeholder="Demir:20,Çelik:5 ... şeklinde yazınız">
                 <small>{{ errors[0] }}</small>
               </ValidationProvider>
             </div>
@@ -124,7 +124,12 @@ export default {
   }),
   methods: {
     async onLiftSubmit() {
-      this.liftForm.rawMaterials = this.liftForm.rawMaterials.split(' ');
+      const materials = this.liftForm.rawMaterials.split(',');
+      this.liftForm.rawMaterials = {};
+      materials.forEach((material) => {
+        const [name, quantity] = material.split(':');
+        this.liftForm.rawMaterials[name] = quantity;
+      });
       this.liftFormResponse = await fetch(LIFTS_API_URL, {
         method: 'POST',
         body: JSON.stringify(this.liftForm),
@@ -135,7 +140,12 @@ export default {
       this.clearLiftForm();
     },
     async onLiftChange() {
-      this.liftForm.rawMaterials = this.liftForm.rawMaterials.split(' ');
+      const materials = this.liftForm.rawMaterials.split(',');
+      this.liftForm.rawMaterials = {};
+      materials.forEach((material) => {
+        const [name, quantity] = material.split(':');
+        this.liftForm.rawMaterials[name] = quantity;
+      });
       this.liftFormResponse = await fetch(LIFTS_API_URL, {
         method: 'PUT',
         body: JSON.stringify(this.liftForm),
@@ -146,7 +156,12 @@ export default {
       this.clearLiftForm();
     },
     async onLiftRemove() {
-      this.liftForm.rawMaterials = this.liftForm.rawMaterials.split(' ');
+      const materials = this.liftForm.rawMaterials.split(',');
+      this.liftForm.rawMaterials = {};
+      materials.forEach((material) => {
+        const [name, quantity] = material.split(':');
+        this.liftForm.rawMaterials[name] = quantity;
+      });
       this.liftFormResponse = await fetch(LIFTS_API_URL, {
         method: 'DELETE',
         body: JSON.stringify(this.liftForm),

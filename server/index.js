@@ -16,11 +16,13 @@ const login = require('./routes/login');
 const signUp = require('./routes/signUp');
 const lifts = require('./routes/lifts');
 const recipes = require('./routes/recipes');
+const users = require('./routes/users');
 
 app.use('/login', login);
 app.use('/signup', signUp);
 app.use('/lifts', lifts);
 app.use('/recipes', recipes);
+app.use('/users', users);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

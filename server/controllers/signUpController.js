@@ -24,17 +24,6 @@ async function createUser(user) {
   }
 }
 
-function getAll() {
-  return users.find();
-}
-
-// TODO remove this method
-function drop() {
-  return users.drop();
-}
-
 module.exports = {
   createUser,
-  getAll,
-  drop
 }

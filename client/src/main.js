@@ -14,6 +14,7 @@ Vue.config.productionTip = false;
 const state = {
   isLoggedIn: false,
   loggedUser: '',
+  userCart: [],
 };
 
 new Vue({
