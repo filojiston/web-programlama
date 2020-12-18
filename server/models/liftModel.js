@@ -5,6 +5,9 @@ const schema = Joi.object({
   price: Joi.number().integer().required(),
   consumerPrice: Joi.number().integer().required(),
   rawMaterials: Joi.object().required(),
+  soldDate: Joi.string(),
+  soldPrice: Joi.number().integer(),
+  maintenanceDate: Joi.string(),
 });
 
 module.exports = schema;
