@@ -21,18 +21,33 @@
         <button v-on:click="buyItems()" type="button"
         class="btn btn-primary btn-sm">Satın Al</button>
       </div>
+      <h5 v-if="this.lowOnMaterial" class="ml-4 mt-4">
+        Yetersiz hammadde sebebiyle siparişinizi tamamlayamıyoruz.
+        Stoklarımız {{this.leadDate}} ay içerisinde yenilenecektir.
+      </h5>
+      <h5 v-if="this.done" class="ml-4 mt-4">
+        Siparişiniz tamamlanmıştır.
+      </h5>
     </div>
   </div>
 </template>
 
 <script>
-// const LIFTS_URL = 'http://localhost:4040/lifts';
+const RECIPES_URL = 'http://localhost:4040/recipes';
 
 export default {
   name: 'Cart',
   data: () => ({
     isConsumer: true,
     totalFee: 0,
+    rawMaterials: [],
+    totalRawMaterials: new Map(),
+    lowOnMaterial: false,
+    done: false,
+    leadDate: '',
+    response: {
+      ok: true,
+    },
   }),
   mounted() {
     if (this.$root.$data.isLoggedIn) {
@@ -42,13 +57,43 @@ export default {
     }
     this.totalFee = this.$root.$data.userCart.reduce((acc, curr) => {
       // eslint-disable-next-line
-      acc += this.isConsumer ? curr.consumerPrice : curr.price;
+      acc += this.isConsumer ? +curr.consumerPrice : +curr.price;
       return acc;
     }, 0);
   },
   methods: {
-    buyItems() {
+    async buyItems() {
+      // check if there is enough raw materials
+      this.response = await fetch(RECIPES_URL).then((response) => response.json())
+        .then((result) => {
+          this.rawMaterials = result;
+        });
 
+      this.$root.$data.userCart.forEach((lift) => {
+        const materials = Object.entries(lift.rawMaterials);
+        materials.forEach((material) => {
+          if (!this.totalRawMaterials.has(material[0])) {
+            this.totalRawMaterials.set(material[0], +material[1]);
+          } else {
+            const quantity = this.totalRawMaterials.get(material[0]);
+            this.totalRawMaterials.set(material[0], quantity + +material[1]);
+          }
+        });
+      });
+
+      // else, tell user we cant afford raw materials now. they should check in supplydate time.
+      this.rawMaterials.forEach((material) => {
+        const quantity = this.totalRawMaterials.get(material.name) || 0;
+        if (material.quantity < quantity) {
+          this.lowOnMaterial = true;
+          if (+material.leadTime > +this.leadDate) this.leadDate = material.leadTime;
+        }
+      });
+
+      if (!this.lowOnMaterial) {
+        // if so, add lifts to user's boughtlifts array and say it's done
+        // if raw materials at critical level, warn the corp.
+      }
     },
     removeFromCart(lift) {
       const liftIndex = this.$root.$data.userCart.indexOf(lift);

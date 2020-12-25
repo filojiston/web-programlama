@@ -32,7 +32,7 @@ async function updateLift(lift) {
   if (validationResult.error == null) {
     const hasLift = await lifts.findOne({name: lift.name}) !== null;
     if (hasLift) {
-      return lifts.update({name: lift.name}, { $set: {price: lift.price, consumerPrice: lift.consumerPrice, rawMaterials: lift.rawMaterials}});
+      return lifts.update({name: lift.name}, { $set: {price: +lift.price, consumerPrice: +lift.consumerPrice, rawMaterials: lift.rawMaterials}});
     } else {
       return Promise.reject({
         message: 'the lift was not found.',

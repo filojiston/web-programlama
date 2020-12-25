@@ -80,6 +80,17 @@
                 <small>{{ errors[0] }}</small>
               </ValidationProvider>
             </div>
+            <div class="form-group">
+              <ValidationProvider name="critical quantity"
+              rules="required|integer" v-slot="{ errors }">
+                <label for="criticalQuantity">
+                  Kritik Sayı (Bu sayıdan az kaldığında firma bilgilendirilecek)
+                </label>
+                <input v-model="materialForm.criticalQuantity" type="text"
+                class="form-control" id="criticalQuantity">
+                <small>{{ errors[0] }}</small>
+              </ValidationProvider>
+            </div>
             <div class="text-center">
               <button v-on:click="handleSubmit(onMaterialSubmit)"
               class="btn btn-primary mr-5">Ekle</button>
@@ -117,6 +128,7 @@ export default {
       name: '',
       quantity: '',
       leadTime: '',
+      criticalQuantity: '',
     },
     materialFormResponse: {
       ok: true,
@@ -211,6 +223,7 @@ export default {
       this.materialForm.name = '';
       this.materialForm.quantity = '';
       this.materialForm.leadTime = '';
+      this.materialForm.criticalQuantity = '';
     },
   },
 };

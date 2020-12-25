@@ -33,7 +33,7 @@ async function updateMaterial(material) {
     const hasMaterial = await materials.findOne({name: material.name}) !== null;
     if (hasMaterial) {
       const ourMaterial = await materials.findOne({name: material.name});
-      return materials.update({name: material.name}, { $set: {quantity: +ourMaterial.quantity + +material.quantity, leadTime: material.leadTime}});
+      return materials.update({name: material.name}, { $set: {quantity: +ourMaterial.quantity + +material.quantity, leadTime: material.leadTime, criticalQuantity: +material.criticalQuantity}});
     } else {
       return Promise.reject({
         message: 'the material was not found.',
