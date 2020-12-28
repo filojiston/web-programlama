@@ -34,11 +34,13 @@
 
 <script>
 const RECIPES_URL = 'http://localhost:4040/recipes';
+const USERS_URL = 'http://localhost:4040/users';
 
 export default {
   name: 'Cart',
   data: () => ({
     isConsumer: true,
+    userUrl: '',
     totalFee: 0,
     rawMaterials: [],
     totalRawMaterials: new Map(),
@@ -47,6 +49,8 @@ export default {
     leadDate: '',
     response: {
       ok: true,
+    },
+    user: {
     },
   }),
   mounted() {
@@ -60,6 +64,7 @@ export default {
       acc += this.isConsumer ? +curr.consumerPrice : +curr.price;
       return acc;
     }, 0);
+    this.userUrl = `http://localhost:4040/users/${this.$root.$data.loggedUser}`;
   },
   methods: {
     async buyItems() {
@@ -91,7 +96,22 @@ export default {
       });
 
       if (!this.lowOnMaterial) {
+        await fetch(this.userUrl).then((response) => response.json())
+          .then((result) => {
+            this.user = result;
+          });
         // if so, add lifts to user's boughtlifts array and say it's done
+        this.user.boughtLifts = this.user.boughtLifts.concat(this.$root.$data.userCart);
+        // eslint-disable-next-line
+        delete this.user._id;
+        await fetch(USERS_URL, {
+          method: 'PUT',
+          body: JSON.stringify(this.user),
+          headers: {
+            'content-type': 'application/json',
+          },
+        });
+        // remove raw materials
         // if raw materials at critical level, warn the corp.
       }
     },

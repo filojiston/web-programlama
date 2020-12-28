@@ -19,4 +19,22 @@ router.delete('/', (req, res) => {
   });
 });
 
+router.put('/', (req, res) => {
+  userController.updateUser(req.body).then(user => {
+    res.json(user);
+  }).catch(error => {
+    res.status(error.statusCode);
+    res.json(error);
+  });
+});
+
+router.get('/:username', (req, res) => {
+  userController.getOne(req.params).then(user => {
+    res.json(user);
+  }).catch(error => {
+    res.status(error.statusCode);
+    res.json(error);
+  });
+});
+
 module.exports = router;
