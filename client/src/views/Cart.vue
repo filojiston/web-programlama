@@ -111,8 +111,34 @@ export default {
             'content-type': 'application/json',
           },
         });
-        // remove raw materials
-        // if raw materials at critical level, warn the corp.
+
+        // eslint-disable-next-line
+        for (const material of this.rawMaterials) {
+          const quantity = this.totalRawMaterials.get(material.name) || 0;
+          const realQuantity = material.quantity - quantity;
+          material.quantity = -quantity;
+          if (realQuantity <= material.criticalQuantity) {
+            // send an email
+            // eslint-disable-next-line
+            await fetch(RECIPES_URL + `/${material.name}`, {
+              method: 'PUT',
+              body: JSON.stringify(material),
+              headers: {
+                'content-type': 'application/json',
+              },
+            });
+          }
+          // eslint-disable-next-line
+          delete material._id;
+          // eslint-disable-next-line
+          await fetch(RECIPES_URL, {
+            method: 'PUT',
+            body: JSON.stringify(material),
+            headers: {
+              'content-type': 'application/json',
+            },
+          });
+        }
       }
     },
     removeFromCart(lift) {

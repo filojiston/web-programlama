@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const rawMaterialController = require('../controllers/rawMaterialController');
+const mailController = require('../controllers/mailController');
 
 router.get('/', (req, res) => {
   rawMaterialController.getMaterials().then(materials => {
@@ -23,6 +24,14 @@ router.put('/', (req, res) => {
     res.json(message);
   }).catch(error => {
     res.status(error.statusCode);
+    res.json(error);
+  });
+});
+
+router.put('/:name', (req, res) => {
+  mailController.sendEmailForMaterial(req.params).then(message => {
+    res.json(message);
+  }).catch(error => {
     res.json(error);
   });
 });
