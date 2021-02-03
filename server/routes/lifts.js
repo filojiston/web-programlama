@@ -36,4 +36,25 @@ router.delete('/', (req, res) => {
   });
 });
 
+router.get('/soldLifts', (req, res) => {
+  liftController.getSoldLifts().then(lifts => {
+    res.json(lifts);
+  });
+});
+
+router.post('/soldLifts', (req, res) => {
+  liftController.sellLift(req.body).then(message => {
+    res.json(message);
+  });
+});
+
+router.delete('/soldLifts', (req, res) => {
+  liftController.deleteSoldLifts().then(message => {
+    res.json({
+      message: 'success!',
+    });
+  });
+});
+
+
 module.exports = router;

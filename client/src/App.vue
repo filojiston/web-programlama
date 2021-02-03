@@ -9,6 +9,9 @@
           <li v-if="authUser()" class="nav-item">
              <router-link to="/recipes" class="nav-link">Lift Reçetesi</router-link>
           </li>
+          <li v-if="authUser()" class="nav-item">
+             <router-link to="/manage" class="nav-link">Siparişleri Yönet</router-link>
+          </li>
         </ul>
       </div>
       <div class="mx-auto order-0">
@@ -28,6 +31,9 @@
       <div v-if="this.$root.$data.isLoggedIn"
       class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <router-link to="/userHistory" class="nav-link">Satın Alımlarım</router-link>
+          </li>
           <li class="nav-item">
             <router-link to="/cart" class="nav-link">Sepetim</router-link>
           </li>

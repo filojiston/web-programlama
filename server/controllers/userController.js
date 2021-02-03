@@ -40,7 +40,6 @@ async function updateUser(user) {
   }
 }
 
-// TODO remove this method
 function drop() {
   return users.drop();
 }
@@ -49,5 +48,5 @@ module.exports = {
   getAll,
   updateUser,
   getOne,
-  drop
+  drop,
 }

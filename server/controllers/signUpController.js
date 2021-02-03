@@ -9,6 +9,7 @@ async function createUser(user) {
     const isUsernameUnique = await users.findOne({username: user.username}) === null;
     const isEmailUnique = await users.findOne({email: user.email}) === null;
     if (isUsernameUnique && isEmailUnique) {
+      user.boughtLifts = [];
       return users.insert(user);
     } else {
       return Promise.reject({

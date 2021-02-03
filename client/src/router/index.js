@@ -6,6 +6,8 @@ import Login from '../views/Login.vue';
 import Lifts from '../views/Lifts.vue';
 import Recipes from '../views/Recipes.vue';
 import Cart from '../views/Cart.vue';
+import UserHistory from '../views/UserHistory.vue';
+import Manage from '../views/Manage.vue';
 
 Vue.use(VueRouter);
 
@@ -34,6 +36,16 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: Cart,
+  },
+  {
+    path: '/userHistory',
+    name: 'userHistory',
+    component: UserHistory,
+  },
+  {
+    path: '/manage',
+    name: 'manage',
+    component: Manage,
   },
 ];
 

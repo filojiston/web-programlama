@@ -35,6 +35,7 @@
 <script>
 const RECIPES_URL = 'http://localhost:4040/recipes';
 const USERS_URL = 'http://localhost:4040/users';
+const SOLD_LIFTS_URL = 'http://localhost:4040/lifts/soldLifts';
 
 export default {
   name: 'Cart',
@@ -47,6 +48,10 @@ export default {
     lowOnMaterial: false,
     done: false,
     leadDate: '',
+    order: {
+      lifts: [],
+      buyer: '',
+    },
     response: {
       ok: true,
     },
@@ -100,6 +105,25 @@ export default {
           .then((result) => {
             this.user = result;
           });
+
+        // set all lifts sold date to today and prices to correct prices
+        for (let lift of this.$root.$data.userCart) {
+          lift.soldDate = new Date().toLocaleDateString();
+          lift.soldPrice = this.isConsumer ? lift.consumerPrice : lift.price;
+        }
+
+        this.order.lifts = [...this.$root.$data.userCart];
+        this.order.buyer = this.$root.$data.loggedUser;
+
+        // also add all lifts to sold lifts
+        await fetch(SOLD_LIFTS_URL, {
+          method: 'POST',
+          body: JSON.stringify(this.order),
+          headers: {
+            'content-type': 'application/json',
+          },
+        });
+
         // if so, add lifts to user's boughtlifts array and say it's done
         this.user.boughtLifts = this.user.boughtLifts.concat(this.$root.$data.userCart);
         // eslint-disable-next-line

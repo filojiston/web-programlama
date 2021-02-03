@@ -36,6 +36,24 @@
                 <small>{{ errors[0] }}</small>
               </ValidationProvider>
             </div>
+            <div class="form-group">
+              <ValidationProvider name="maintenance date" rules="required|integer"
+              v-slot="{ errors }">
+                <label for="maintenanceDate">Bakım Süresi</label>
+                <input v-model="liftForm.maintenanceDate" type="text"
+                class="form-control" id="maintenanceDate">
+                <small>{{ errors[0] }}</small>
+              </ValidationProvider>
+            </div>
+            <div class="form-group">
+              <ValidationProvider name="maintenance price" rules="required|integer"
+              v-slot="{ errors }">
+                <label for="maintenancePrice">Bakım Ücreti</label>
+                <input v-model="liftForm.maintenancePrice" type="text"
+                class="form-control" id="maintenancePrice">
+                <small>{{ errors[0] }}</small>
+              </ValidationProvider>
+            </div>
             <div class="text-center">
               <button v-on:click="handleSubmit(onLiftSubmit)"
               class="btn btn-primary mr-5">Ekle</button>
@@ -120,6 +138,8 @@ export default {
       price: '',
       consumerPrice: '',
       rawMaterials: '',
+      maintenanceDate: '',
+      maintenancePrice: '',
     },
     liftFormResponse: {
       ok: true,
@@ -188,6 +208,8 @@ export default {
       this.liftForm.price = '';
       this.liftForm.consumerPrice = '';
       this.liftForm.rawMaterials = '';
+      this.liftForm.maintenanceDate = '';
+      this.liftForm.maintenancePrice = '';
     },
     async onMaterialSubmit() {
       this.MaterialFormResponse = await fetch(RECIPES_API_URL, {

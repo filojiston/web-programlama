@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
   });
 });
 
-// TODO remove this method
 router.delete('/', (req, res) => {
   userController.drop().then(message => {
     res.json(message);
